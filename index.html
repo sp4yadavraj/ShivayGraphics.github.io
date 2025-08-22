@@ -10,6 +10,242 @@
         <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
 
         <title>ShivayGraphics Portfolio</title>
+        <style>
+            /* Additional styles for the payment and download buttons */
+            .work__actions {
+                display: flex;
+                justify-content: center;
+                gap: 10px;
+                margin-top: 10px;
+            }
+            
+            .work__button {
+                padding: 8px 15px;
+                background: var(--first-color);
+                color: #fff;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 14px;
+                transition: 0.3s;
+                display: flex;
+                align-items: center;
+                gap: 5px;
+            }
+            
+            .work__button:hover {
+                background: var(--first-color-alt);
+            }
+            
+            .work__button--download {
+                background: #28a745;
+            }
+            
+            .work__button--download:hover {
+                background: #218838;
+            }
+            
+            .work__button--disabled {
+                background: #cccccc;
+                cursor: not-allowed;
+            }
+            
+            .work__button--disabled:hover {
+                background: #cccccc;
+            }
+            
+            .work__item {
+                margin-bottom: 30px;
+                position: relative;
+            }
+            
+            .purchase-status {
+                font-size: 12px;
+                margin-top: 5px;
+                text-align: center;
+                color: #28a745;
+                font-weight: bold;
+            }
+            
+            /* Modal styles */
+            .modal {
+                display: none;
+                position: fixed;
+                z-index: 1000;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                overflow: auto;
+                background-color: rgba(0,0,0,0.4);
+            }
+            
+            .modal-content {
+                background-color: #fefefe;
+                margin: 15% auto;
+                padding: 20px;
+                border: 1px solid #888;
+                width: 80%;
+                max-width: 500px;
+                border-radius: 8px;
+                position: relative;
+            }
+            
+            .close {
+                color: #aaa;
+                float: right;
+                font-size: 28px;
+                font-weight: bold;
+                position: absolute;
+                right: 15px;
+                top: 10px;
+            }
+            
+            .close:hover,
+            .close:focus {
+                color: black;
+                text-decoration: none;
+                cursor: pointer;
+            }
+            
+            .payment-options {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                margin-top: 20px;
+            }
+            
+            .payment-button {
+                padding: 12px 20px;
+                background: var(--first-color);
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                transition: 0.3s;
+                font-size: 16px;
+            }
+            
+            .payment-button:hover {
+                background: var(--first-color-alt);
+            }
+            
+            .payment-button.upi {
+                background: #3B82F6;
+            }
+            
+            .payment-button.upi:hover {
+                background: #2563EB;
+            }
+            
+            .payment-button.card {
+                background: #8B5CF6;
+            }
+            
+            .payment-button.card:hover {
+                background: #7C3AED;
+            }
+            
+            .payment-button.wallet {
+                background: #10B981;
+            }
+            
+            .payment-button.wallet:hover {
+                background: #059669;
+            }
+            
+            .form-group {
+                margin-bottom: 15px;
+            }
+            
+            .form-group label {
+                display: block;
+                margin-bottom: 5px;
+                font-weight: bold;
+            }
+            
+            .form-group input {
+                width: 100%;
+                padding: 8px;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+            }
+            
+            .payment-success {
+                text-align: center;
+                color: #28a745;
+                margin-top: 15px;
+                font-weight: bold;
+            }
+            
+            .payment-method {
+                display: none;
+            }
+            
+            .payment-method.active {
+                display: block;
+            }
+            
+            .payment-header {
+                text-align: center;
+                margin-bottom: 20px;
+            }
+            
+            .payment-amount {
+                font-size: 24px;
+                font-weight: bold;
+                color: #1F2937;
+                margin: 10px 0;
+            }
+            
+            .rupee-symbol {
+                font-family: sans-serif;
+            }
+            
+            /* Contact form styles */
+            .contact__input {
+                width: 100%;
+                padding: 12px;
+                margin-bottom: 15px;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                font-family: inherit;
+                font-size: 16px;
+            }
+            
+            .contact__input:focus {
+                outline: none;
+                border-color: var(--first-color);
+            }
+            
+            textarea.contact__input {
+                min-height: 120px;
+                resize: vertical;
+            }
+            
+            .form-status {
+                text-align: center;
+                margin-top: 15px;
+                padding: 10px;
+                border-radius: 4px;
+                display: none;
+            }
+            
+            .form-status.success {
+                background-color: #d4edda;
+                color: #155724;
+                display: block;
+            }
+            
+            .form-status.error {
+                background-color: #f8d7da;
+                color: #721c24;
+                display: block;
+            }
+        </style>
     </head>
     <body>
         <!--===== HEADER =====-->
@@ -92,7 +328,7 @@
                         <p class="skills__text">Shivam Yadav is a talented designer known for his innovative approach and meticulous attention to detail. His work seamlessly blends creativity with functionality, resulting in visually stunning and effective designs. With a passion for collaboration, Shivam ensures each project reflects the unique vision of his clients.</p>
                         <div class="skills__data">
                             <div class="skills__names">
-                                <i class='bx bxl-youtube skills__icon />'></i>
+                                <i class='bx bxl-youtube skills__icon'></i>
                                 <span class="skills__name">YouTube Thumbnail</span>
                             </div>
                             <div class="skills__bar skills__html">
@@ -104,7 +340,7 @@
                         </div>
                         <div class="skills__data">
                             <div class="skills__names">
-                                <i class='bx bxl-instagram skills__icon />'></i>
+                                <i class='bx bxl-instagram skills__icon'></i>
                                 <span class="skills__name">Post Editing</span>
                             </div>
                             <div class="skills__bar skills__postediting">
@@ -151,26 +387,110 @@
                 <h2 class="section-title">Work</h2>
 
                 <div class="work__container bd-grid">
-                    <a href="" class="work__img">
-                        <img src="assets/img/work1.jpg" alt="">
-                    </a>
-                    <a href="" class="work__img">
-                        <img src="assets/img/work2.jpg" alt="">
-                    </a>
-                    <a href="" class="work__img">
-                        <img src="assets/img/work3.jpg" alt="">
-                    </a>
-                    <a href="" class="work__img">
-                        <img src="assets/img/work4.jpg" alt="">
-                    </a>
-                    <a href="" class="work__img">
-                        <img src="assets/img/work5.jpg" alt="">
-                    </a>
-                    <a href="" class="work__img">
-                        <img src="assets/img/work6.jpg" alt="">
-                    <a href="" class="work__img">
-                        <img src="assets/img/work7.jpg" alt="">
-                    </a>
+                    <div class="work__item">
+                        <a href="" class="work__img">
+                            <img src="assets/img/work1.jpg" alt="Design work 1">
+                        </a>
+                        <div class="work__actions">
+                            <button class="work__button work__button--disabled download-btn" data-image="work1.jpg" disabled>
+                                <i class='bx bx-download'></i> Download
+                            </button>
+                            <button class="work__button purchase-btn" data-title="Design 1" data-price="199" data-image="work1.jpg">
+                                <i class='bx bx-purchase-tag-alt'></i> Buy (<span class="rupee-symbol">₹</span>199)
+                            </button>
+                        </div>
+                        <div class="purchase-status" id="status-work1.jpg"></div>
+                    </div>
+                    
+                    <div class="work__item">
+                        <a href="" class="work__img">
+                            <img src="assets/img/work2.jpg" alt="Design work 2">
+                        </a>
+                        <div class="work__actions">
+                            <button class="work__button work__button--disabled download-btn" data-image="work2.jpg" disabled>
+                                <i class='bx bx-download'></i> Download
+                            </button>
+                            <button class="work__button purchase-btn" data-title="Design 2" data-price="199" data-image="work2.jpg">
+                                <i class='bx bx-purchase-tag-alt'></i> Buy (<span class="rupee-symbol">₹</span>199)
+                            </button>
+                        </div>
+                        <div class="purchase-status" id="status-work2.jpg"></div>
+                    </div>
+                    
+                    <div class="work__item">
+                        <a href="" class="work__img">
+                            <img src="assets/img/work3.jpg" alt="Design work 3">
+                        </a>
+                        <div class="work__actions">
+                            <button class="work__button work__button--disabled download-btn" data-image="work3.jpg" disabled>
+                                <i class='bx bx-download'></i> Download
+                            </button>
+                            <button class="work__button purchase-btn" data-title="Design 3" data-price="249" data-image="work3.jpg">
+                                <i class='bx bx-purchase-tag-alt'></i> Buy (<span class="rupee-symbol">₹</span>249)
+                            </button>
+                        </div>
+                        <div class="purchase-status" id="status-work3.jpg"></div>
+                    </div>
+                    
+                    <div class="work__item">
+                        <a href="" class="work__img">
+                            <img src="assets/img/work4.jpg" alt="Design work 4">
+                        </a>
+                        <div class="work__actions">
+                            <button class="work__button work__button--disabled download-btn" data-image="work4.jpg" disabled>
+                                <i class='bx bx-download'></i> Download
+                            </button>
+                            <button class="work__button purchase-btn" data-title="Design 4" data-price="249" data-image="work4.jpg">
+                                <i class='bx bx-purchase-tag-alt'></i> Buy (<span class="rupee-symbol">₹</span>249)
+                            </button>
+                        </div>
+                        <div class="purchase-status" id="status-work4.jpg"></div>
+                    </div>
+                    
+                    <div class="work__item">
+                        <a href="" class="work__img">
+                            <img src="assets/img/work5.jpg" alt="Design work 5">
+                        </a>
+                        <div class="work__actions">
+                            <button class="work__button work__button--disabled download-btn" data-image="work5.jpg" disabled>
+                                <i class='bx bx-download'></i> Download
+                            </button>
+                            <button class="work__button purchase-btn" data-title="Design 5" data-price="299" data-image="work5.jpg">
+                                <i class='bx bx-purchase-tag-alt'></i> Buy (<span class="rupee-symbol">₹</span>299)
+                            </button>
+                        </div>
+                        <div class="purchase-status" id="status-work5.jpg"></div>
+                    </div>
+                    
+                    <div class="work__item">
+                        <a href="" class="work__img">
+                            <img src="assets/img/work6.jpg" alt="Design work 6">
+                        </a>
+                        <div class="work__actions">
+                            <button class="work__button work__button--disabled download-btn" data-image="work6.jpg" disabled>
+                                <i class='bx bx-download'></i> Download
+                            </button>
+                            <button class="work__button purchase-btn" data-title="Design 6" data-price="299" data-image="work6.jpg">
+                                <i class='bx bx-purchase-tag-alt'></i> Buy (<span class="rupee-symbol">₹</span>299)
+                            </button>
+                        </div>
+                        <div class="purchase-status" id="status-work6.jpg"></div>
+                    </div>
+                    
+                    <div class="work__item">
+                        <a href="" class="work__img">
+                            <img src="assets/img/work7.jpg" alt="Design work 7">
+                        </a>
+                        <div class="work__actions">
+                            <button class="work__button work__button--disabled download-btn" data-image="work7.jpg" disabled>
+                                <i class='bx bx-download'></i> Download
+                            </button>
+                            <button class="work__button purchase-btn" data-title="Design 7" data-price="349" data-image="work7.jpg">
+                                <i class='bx bx-purchase-tag-alt'></i> Buy (<span class="rupee-symbol">₹</span>349)
+                            </button>
+                        </div>
+                        <div class="purchase-status" id="status-work7.jpg"></div>
+                    </div>
                 </div>
             </section>
 
@@ -179,11 +499,12 @@
                 <h2 class="section-title">Contact</h2>
 
                 <div class="contact__container bd-grid">
-                    <form action="" class="contact__form">
-                        <input type="text" placeholder="Name" class="contact__input">
-                        <input type="mail" placeholder="Email" class="contact__input">
-                        <textarea name="" id="" cols="0" rows="10" class="contact__input"></textarea>
-                        <input type="button" value="Submit" class="contact__button button">
+                    <form id="contactForm" action="https://formspree.io/f/mjvnllwz" method="POST" class="contact__form">
+                        <input type="text" name="name" placeholder="Name" class="contact__input" required>
+                        <input type="email" name="email" placeholder="Email" class="contact__input" required>
+                        <textarea name="message" cols="0" rows="10" class="contact__input" placeholder="Your message" required></textarea>
+                        <button type="submit" class="contact__button button">Submit</button>
+                        <div id="formStatus" class="form-status"></div>
                     </form>
                 </div>
             </section>
@@ -200,11 +521,358 @@
             <p class="footer__copy">&#169; ShivayGraphics. All rigths reserved</p>
         </footer>
 
+        <!-- Payment Modal -->
+        <div id="paymentModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <div class="payment-header">
+                    <h2>Purchase Image</h2>
+                    <p>You are purchasing: <strong id="imageTitle"></strong></p>
+                    <div class="payment-amount"><span class="rupee-symbol">₹</span><span id="imagePrice"></span></div>
+                </div>
+                
+                <div class="payment-options">
+                    <button class="payment-button upi" data-method="upi">
+                        <i class='bx bxl-google-pay' ></i> UPI Payment
+                    </button>
+                    <button class="payment-button card" data-method="card">
+                        <i class='bx bx-credit-card' ></i> Credit/Debit Card
+                    </button>
+                    <button class="payment-button wallet" data-method="wallet">
+                        <i class='bx bx-wallet' ></i> Wallet
+                    </button>
+                </div>
+                
+                <!-- UPI Payment Method -->
+                <div id="payment-upi" class="payment-method">
+                    <div class="form-group">
+                        <label for="upiId">UPI ID</label>
+                        <input type="text" id="upiId" placeholder="yourname@upi">
+                    </div>
+                    <button class="payment-button upi" id="processUpiPayment">
+                        <i class='bx bx-check-circle' ></i> Pay Now
+                    </button>
+                </div>
+                
+                <!-- Card Payment Method -->
+                <div id="payment-card" class="payment-method">
+                    <div class="form-group">
+                        <label for="cardNumber">Card Number</label>
+                        <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456">
+                    </div>
+                    <div class="form-group">
+                        <label for="expiryDate">Expiry Date</label>
+                        <input type="text" id="expiryDate" placeholder="MM/YY">
+                    </div>
+                    <div class="form-group">
+                        <label for="cvv">CVV</label>
+                        <input type="text" id="cvv" placeholder="123">
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Cardholder Name</label>
+                        <input type="text" id="name" placeholder="John Doe">
+                    </div>
+                    <button class="payment-button card" id="processCardPayment">
+                        <i class='bx bx-check-circle' ></i> Pay Now
+                    </button>
+                </div>
+                
+                <!-- Wallet Payment Method -->
+                <div id="payment-wallet" class="payment-method">
+                    <div class="form-group">
+                        <label for="walletType">Select Wallet</label>
+                        <select id="walletType" class="contact__input">
+                            <option value="paytm">Paytm</option>
+                            <option value="phonepe">PhonePe</option>
+                            <option value="amazonpay">Amazon Pay</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="mobileNumber">Mobile Number</label>
+                        <input type="text" id="mobileNumber" placeholder="98XXXXXX98">
+                    </div>
+                    <button class="payment-button wallet" id="processWalletPayment">
+                        <i class='bx bx-check-circle' ></i> Pay Now
+                    </button>
+                </div>
+                
+                <div id="paymentSuccess" class="payment-success" style="display: none;">
+                    <i class='bx bx-check-circle' style="font-size: 48px;"></i>
+                    <p>Payment Successful!</p>
+                    <p>You can now download your image.</p>
+                </div>
+            </div>
+        </div>
 
         <!--===== SCROLL REVEAL =====-->
         <script src="https://unpkg.com/scrollreveal"></script>
 
         <!--===== MAIN JS =====-->
         <script src="assets/js/main.js"></script>
+        
+        <script>
+            // Store purchased images
+            const purchasedImages = JSON.parse(localStorage.getItem('purchasedImages')) || {};
+            let currentImage = null;
+            let currentPrice = null;
+            
+            // Initialize page
+            document.addEventListener('DOMContentLoaded', function() {
+                // Enable download buttons for purchased images
+                Object.keys(purchasedImages).forEach(image => {
+                    enableDownload(image);
+                });
+                
+                // Set up purchase button event listeners
+                document.querySelectorAll('.purchase-btn').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const title = this.getAttribute('data-title');
+                        const price = this.getAttribute('data-price');
+                        const image = this.getAttribute('data-image');
+                        showPaymentModal(title, price, image);
+                    });
+                });
+                
+                // Set up download button event listeners
+                document.querySelectorAll('.download-btn').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const image = this.getAttribute('data-image');
+                        downloadImage(image);
+                    });
+                });
+                
+                // Close modal when clicking on X
+                document.querySelector('.close').addEventListener('click', function() {
+                    document.getElementById('paymentModal').style.display = 'none';
+                    resetPaymentMethods();
+                });
+                
+                // Payment method selection
+                document.querySelectorAll('.payment-button[data-method]').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const method = this.getAttribute('data-method');
+                        selectPaymentMethod(method);
+                    });
+                });
+                
+                // Process payment buttons
+                document.getElementById('processUpiPayment').addEventListener('click', processUpiPayment);
+                document.getElementById('processCardPayment').addEventListener('click', processCardPayment);
+                document.getElementById('processWalletPayment').addEventListener('click', processWalletPayment);
+                
+                // Contact form submission
+                const contactForm = document.getElementById('contactForm');
+                const formStatus = document.getElementById('formStatus');
+                
+                if (contactForm) {
+                    contactForm.addEventListener('submit', function(event) {
+                        event.preventDefault();
+                        
+                        // Change button text to show processing
+                        const submitButton = contactForm.querySelector('button[type="submit"]');
+                        const originalText = submitButton.textContent;
+                        submitButton.textContent = 'Sending...';
+                        submitButton.disabled = true;
+                        
+                        // Get form data
+                        const formData = new FormData(contactForm);
+                        
+                        // Send form data using Fetch API
+                        fetch(contactForm.action, {
+                            method: 'POST',
+                            body: formData,
+                            headers: {
+                                'Accept': 'application/json'
+                            }
+                        })
+                        .then(response => {
+                            if (response.ok) {
+                                // Show success message
+                                formStatus.textContent = 'Thank you! Your message has been sent.';
+                                formStatus.className = 'form-status success';
+                                
+                                // Reset form
+                                contactForm.reset();
+                            } else {
+                                throw new Error('Form submission failed');
+                            }
+                        })
+                        .catch(error => {
+                            // Show error message
+                            formStatus.textContent = 'Oops! There was a problem sending your message. Please try again.';
+                            formStatus.className = 'form-status error';
+                        })
+                        .finally(() => {
+                            // Reset button text
+                            submitButton.textContent = originalText;
+                            submitButton.disabled = false;
+                            
+                            // Hide status message after 5 seconds
+                            setTimeout(() => {
+                                formStatus.style.display = 'none';
+                            }, 5000);
+                        });
+                    });
+                }
+            });
+            
+            // Function to show payment modal
+            function showPaymentModal(title, price, image) {
+                currentImage = image;
+                currentPrice = price;
+                document.getElementById('imageTitle').textContent = title;
+                document.getElementById('imagePrice').textContent = price;
+                
+                // Reset modal state
+                document.querySelector('.payment-options').style.display = 'flex';
+                document.getElementById('paymentSuccess').style.display = 'none';
+                resetPaymentMethods();
+                
+                // Show modal
+                document.getElementById('paymentModal').style.display = 'block';
+            }
+            
+            // Function to select a payment method
+            function selectPaymentMethod(method) {
+                // Hide all payment methods first
+                document.querySelectorAll('.payment-method').forEach(el => {
+                    el.classList.remove('active');
+                });
+                
+                // Hide payment options
+                document.querySelector('.payment-options').style.display = 'none';
+                
+                // Show selected payment method
+                document.getElementById(`payment-${method}`).classList.add('active');
+            }
+            
+            // Function to reset payment methods
+            function resetPaymentMethods() {
+                document.querySelectorAll('.payment-method').forEach(el => {
+                    el.classList.remove('active');
+                });
+                document.querySelector('.payment-options').style.display = 'flex';
+            }
+            
+            // Function to process UPI payment
+            function processUpiPayment() {
+                const upiId = document.getElementById('upiId').value;
+                
+                if (!upiId) {
+                    alert('Please enter your UPI ID');
+                    return;
+                }
+                
+                // Simulate payment processing
+                simulatePayment('UPI');
+            }
+            
+            // Function to process card payment
+            function processCardPayment() {
+                const cardNumber = document.getElementById('cardNumber').value;
+                const expiryDate = document.getElementById('expiryDate').value;
+                const cvv = document.getElementById('cvv').value;
+                const name = document.getElementById('name').value;
+                
+                if (!cardNumber || !expiryDate || !cvv || !name) {
+                    alert('Please fill in all card details');
+                    return;
+                }
+                
+                // Simulate payment processing
+                simulatePayment('Card');
+            }
+            
+            // Function to process wallet payment
+            function processWalletPayment() {
+                const mobileNumber = document.getElementById('mobileNumber').value;
+                
+                if (!mobileNumber || mobileNumber.length !== 10) {
+                    alert('Please enter a valid 10-digit mobile number');
+                    return;
+                }
+                
+                // Simulate payment processing
+                simulatePayment('Wallet');
+            }
+            
+            // Function to simulate payment processing
+            function simulatePayment(method) {
+                // Show processing state
+                const payButton = document.querySelector(`#payment-${method.toLowerCase()} .payment-button`);
+                const originalText = payButton.innerHTML;
+                payButton.innerHTML = '<i class="bx bx-loader bx-spin"></i> Processing...';
+                payButton.disabled = true;
+                
+                // Simulate payment processing delay
+                setTimeout(() => {
+                    // Show success message
+                    document.querySelectorAll('.payment-method').forEach(el => {
+                        el.classList.remove('active');
+                    });
+                    document.getElementById('paymentSuccess').style.display = 'block';
+                    
+                    // Mark image as purchased
+                    purchasedImages[currentImage] = true;
+                    localStorage.setItem('purchasedImages', JSON.stringify(purchasedImages));
+                    
+                    // Enable download button
+                    enableDownload(currentImage);
+                    
+                    // Reset button state
+                    payButton.innerHTML = originalText;
+                    payButton.disabled = false;
+                    
+                    // Close modal after 2 seconds
+                    setTimeout(() => {
+                        document.getElementById('paymentModal').style.display = 'none';
+                    }, 2000);
+                }, 2000);
+            }
+            
+            // Function to enable download for an image
+            function enableDownload(image) {
+                const downloadBtn = document.querySelector(`.download-btn[data-image="${image}"]`);
+                const statusElement = document.getElementById(`status-${image}`);
+                
+                if (downloadBtn) {
+                    downloadBtn.disabled = false;
+                    downloadBtn.classList.remove('work__button--disabled');
+                    downloadBtn.classList.add('work__button--download');
+                }
+                
+                if (statusElement) {
+                    statusElement.textContent = 'Purchased - Ready to download';
+                }
+            }
+            
+            // Function to handle image download
+            function downloadImage(filename) {
+                // Check if image was purchased
+                if (!purchasedImages[filename]) {
+                    alert('Please purchase this image before downloading');
+                    return;
+                }
+                
+                // Create a temporary anchor tag
+                const link = document.createElement('a');
+                link.href = 'assets/img/' + filename;
+                link.download = filename;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
+                console.log('Downloading: ' + filename);
+            }
+            
+            // Close modal when clicking outside of it
+            window.addEventListener('click', function(event) {
+                const modal = document.getElementById('paymentModal');
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                    resetPaymentMethods();
+                }
+            });
+        </script>
     </body>
 </html>
